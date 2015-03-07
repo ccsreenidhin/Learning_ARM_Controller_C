@@ -1,0 +1,573 @@
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE uart
+OBJECT MODULE PLACED IN uart.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe uart.c THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include <LPC214X.H>
+    2          #include "serial.h"
+    3          
+    4           void main()
+    5           {
+    6   1       char a[]="";
+    7   1      
+    8   1          uart0_init();
+    9   1          uart1_init();
+   10   1      
+   11   1          while(1)
+   12   1          {
+   13   2              gets0(a);
+   14   2              puts0(a);
+   15   2              puts1(a);
+   16   2          }
+   17   1       }
+   18           
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         uart0_init?T
+ PUBLIC         uart1_init?T
+ PUBLIC         putc0?T
+ PUBLIC         putc1?T
+ PUBLIC         getc0?T
+ PUBLIC         getc1?T
+ PUBLIC         puts0?T
+ PUBLIC         gets0?T
+ PUBLIC         puts1?T
+ PUBLIC         gets1?T
+ PUBLIC         clear_rxfifo_uart0?T
+ PUBLIC         clear_rxfifo_uart1?T
+ PUBLIC         main
+
+
+
+*** DATA SEGMENT '?CON?uart':
+ 00000000          ?tpl?0001:
+ 00000000           BEGIN_INIT
+ 00000000            DB          0x00
+ 00000001           END_INIT
+
+
+
+*** CODE SEGMENT '?PR?uart0_init?T?uart':
+    3:  PINSEL0 &=0XFFFFFFF0;  // CLEARING BIT0-BIT 3
+ 00000000  220F      MOV         R2,#0xF
+ 00000002  4800      LDR         R0,=0xE002C000
+ 00000004  6801      LDR         R1,[R0,#0x0]
+ 00000006  4391      BIC         R1,R2
+ 00000008  6001      STR         R1,[R0,#0x0]
+    4:  PINSEL0 |=0X00000005;// CONFIGURE P0.0 &P0.1
+ 0000000A  2205      MOV         R2,#0x5
+ 0000000C  4800      LDR         R0,=0xE002C000
+ 0000000E  6801      LDR         R1,[R0,#0x0]
+ 00000010  4311      ORR         R1,R2
+ 00000012  6001      STR         R1,[R0,#0x0]
+    5:  U0LCR=0X80;//DLAB=1(FOR ENABLING)
+ 00000014  2180      MOV         R1,#0x80
+ 00000016  4800      LDR         R0,=0xE000C00C
+ 00000018  7001      STRB        R1,[R0,#0x0]
+    6:  U0DLL=97; //  BAUD RATE SET UP
+ 0000001A  2261      MOV         R2,#0x61
+ 0000001C  4800      LDR         R0,=0xE000C000
+ 0000001E  7002      STRB        R2,[R0,#0x0]
+    7:  U0DLM=0;
+ 00000020  2200      MOV         R2,#0x0
+ 00000022  4800      LDR         R0,=0xE000C004
+ 00000024  7002      STRB        R2,[R0,#0x0]
+    8:  U0FCR=0X01;//FIFO ENABLING
+ 00000026  2201      MOV         R2,#0x1
+ 00000028  4800      LDR         R0,=0xE000C008
+ 0000002A  7002      STRB        R2,[R0,#0x0]
+    9:  U0LSR=0X01;// RBR CONTAIN VALID DATA
+ 0000002C  4800      LDR         R0,=0xE000C014
+ 0000002E  7002      STRB        R2,[R0,#0x0]
+   10:  U0LCR=0X03;//8 BIT CHARACTER LENGTH
+ 00000030  2203      MOV         R2,#0x3
+ 00000032  4800      LDR         R0,=0xE000C00C
+ 00000034  7002      STRB        R2,[R0,#0x0]
+   11:  U0TER=0X80;//ENABLING UART TRANSMISSION
+ 00000036  4800      LDR         R0,=0xE000C030
+ 00000038  7001      STRB        R1,[R0,#0x0]
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 3   
+
+   12: }
+ 0000003A  4770      BX          R14
+ 0000003C          ENDP ; 'uart0_init?T'
+
+
+*** CODE SEGMENT '?PR?uart1_init?T?uart':
+   16:  PINSEL0 &=0XFFF0FFFF;  // CLEARING BIT16-BIT 19
+ 00000000  4800      LDR         R2,=0xF0000
+ 00000002  4800      LDR         R0,=0xE002C000
+ 00000004  6801      LDR         R1,[R0,#0x0]
+ 00000006  4391      BIC         R1,R2
+ 00000008  6001      STR         R1,[R0,#0x0]
+   17:  PINSEL0 |=0X00050000;// CONFIGURE P0.8.0 &P0.9
+ 0000000A  4800      LDR         R2,=0x50000
+ 0000000C  4800      LDR         R0,=0xE002C000
+ 0000000E  6801      LDR         R1,[R0,#0x0]
+ 00000010  4311      ORR         R1,R2
+ 00000012  6001      STR         R1,[R0,#0x0]
+   18:  U1LCR=0X80;//DLAB=1(FOR ENABLING)
+ 00000014  2180      MOV         R1,#0x80
+ 00000016  4800      LDR         R0,=0xE001000C
+ 00000018  7001      STRB        R1,[R0,#0x0]
+   19:  U1DLL=97; //  BAUD RATE SET UP
+ 0000001A  2261      MOV         R2,#0x61
+ 0000001C  4800      LDR         R0,=0xE0010000
+ 0000001E  7002      STRB        R2,[R0,#0x0]
+   20:  U1DLM=0;
+ 00000020  2200      MOV         R2,#0x0
+ 00000022  4800      LDR         R0,=0xE0010004
+ 00000024  7002      STRB        R2,[R0,#0x0]
+   21:  U1FCR=0X01;//FIFO ENABLING
+ 00000026  2201      MOV         R2,#0x1
+ 00000028  4800      LDR         R0,=0xE0010008
+ 0000002A  7002      STRB        R2,[R0,#0x0]
+   22:  U1LSR=0X01;// RBR CONTAIN VALID DATA
+ 0000002C  4800      LDR         R0,=0xE0010014
+ 0000002E  7002      STRB        R2,[R0,#0x0]
+   23:  U1LCR=0X03;//8 BIT CHARACTER LENGTH
+ 00000030  2203      MOV         R2,#0x3
+ 00000032  4800      LDR         R0,=0xE001000C
+ 00000034  7002      STRB        R2,[R0,#0x0]
+   24:  U1TER=0X80;//ENABLING UART TRANSMISSION
+ 00000036  4800      LDR         R0,=0xE0010030
+ 00000038  7001      STRB        R1,[R0,#0x0]
+   25: }
+ 0000003A  4770      BX          R14
+ 0000003C          ENDP ; 'uart1_init?T'
+
+
+*** CODE SEGMENT '?PR?putc0?T?uart':
+   27: void putc0(char x)
+ 00000000  1C02      MOV         R2,R0 ; x
+ 00000002  ---- Variable 'x' assigned to Register 'R2' ----
+   28: {
+ 00000002            ; SCOPE-START
+   31: U0THR=x;
+ 00000002  1C11      MOV         R1,R2 ; x
+ 00000004  4800      LDR         R0,=0xE000C000
+ 00000006  7001      STRB        R1,[R0,#0x0]
+   32: do
+ 00000008          L_1:
+   34: f=U0LSR;
+ 00000008  4800      LDR         R0,=0xE000C014
+ 0000000A  7801      LDRB        R1,[R0,#0x0]
+ 0000000C  ---- Variable 'f' assigned to Register 'R1' ----
+   35: f=f&0x40;
+ 0000000C  1C08      MOV         R0,R1 ; f
+ 0000000E  0601      LSL         R1,R0,#0x18 ; f
+ 00000010  0E09      LSR         R1,R1,#0x18
+ 00000012  2040      MOV         R0,#0x40
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 4   
+
+ 00000014  4001      AND         R1,R0
+ 00000016  0609      LSL         R1,R1,#0x18
+ 00000018  0E09      LSR         R1,R1,#0x18
+   36: }
+ 0000001A  1C08      MOV         R0,R1 ; f
+ 0000001C  0600      LSL         R0,R0,#0x18 ; f
+ 0000001E  0E00      LSR         R0,R0,#0x18
+ 00000020  2800      CMP         R0,#0x0
+ 00000022  D0F1      BEQ         L_1  ; T=0x00000008
+ 00000024            ; SCOPE-END
+   39: }
+ 00000024  4770      BX          R14
+ 00000026          ENDP ; 'putc0?T'
+
+
+*** CODE SEGMENT '?PR?putc1?T?uart':
+   41: void putc1(char x)
+ 00000000  1C02      MOV         R2,R0 ; x
+ 00000002  ---- Variable 'x' assigned to Register 'R2' ----
+   42: {
+ 00000002            ; SCOPE-START
+   45: U1THR=x;
+ 00000002  1C11      MOV         R1,R2 ; x
+ 00000004  4800      LDR         R0,=0xE0010000
+ 00000006  7001      STRB        R1,[R0,#0x0]
+   46: do
+ 00000008          L_5:
+   48: f=U1LSR;
+ 00000008  4800      LDR         R0,=0xE0010014
+ 0000000A  7801      LDRB        R1,[R0,#0x0]
+ 0000000C  ---- Variable 'f' assigned to Register 'R1' ----
+   49: f=f&0x40;
+ 0000000C  1C08      MOV         R0,R1 ; f
+ 0000000E  0601      LSL         R1,R0,#0x18 ; f
+ 00000010  0E09      LSR         R1,R1,#0x18
+ 00000012  2040      MOV         R0,#0x40
+ 00000014  4001      AND         R1,R0
+ 00000016  0609      LSL         R1,R1,#0x18
+ 00000018  0E09      LSR         R1,R1,#0x18
+   50: }
+ 0000001A  1C08      MOV         R0,R1 ; f
+ 0000001C  0600      LSL         R0,R0,#0x18 ; f
+ 0000001E  0E00      LSR         R0,R0,#0x18
+ 00000020  2800      CMP         R0,#0x0
+ 00000022  D0F1      BEQ         L_5  ; T=0x00000008
+ 00000024            ; SCOPE-END
+   53: }
+ 00000024  4770      BX          R14
+ 00000026          ENDP ; 'putc1?T'
+
+
+*** CODE SEGMENT '?PR?getc0?T?uart':
+   56: {
+ 00000000            ; SCOPE-START
+   59: do
+ 00000000          L_9:
+   61: f=U0LSR;
+ 00000000  4800      LDR         R0,=0xE000C014
+ 00000002  7801      LDRB        R1,[R0,#0x0]
+ 00000004  ---- Variable 'f' assigned to Register 'R1' ----
+   62: f=f&0x01;
+ 00000004  1C08      MOV         R0,R1 ; f
+ 00000006  0601      LSL         R1,R0,#0x18 ; f
+ 00000008  0E09      LSR         R1,R1,#0x18
+ 0000000A  2001      MOV         R0,#0x1
+ 0000000C  4001      AND         R1,R0
+ 0000000E  0609      LSL         R1,R1,#0x18
+ 00000010  0E09      LSR         R1,R1,#0x18
+   63: }
+ 00000012  1C08      MOV         R0,R1 ; f
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 5   
+
+ 00000014  0600      LSL         R0,R0,#0x18 ; f
+ 00000016  0E00      LSR         R0,R0,#0x18
+ 00000018  2800      CMP         R0,#0x0
+ 0000001A  D0F1      BEQ         L_9  ; T=0x00000000
+   65: m=U0RBR;
+ 0000001C  4800      LDR         R0,=0xE000C000
+ 0000001E  7801      LDRB        R1,[R0,#0x0]
+ 00000020  ---- Variable 'm' assigned to Register 'R1' ----
+   67: return(m);
+ 00000020  1C08      MOV         R0,R1 ; m
+ 00000022  0600      LSL         R0,R0,#0x18 ; m
+ 00000024  0E00      LSR         R0,R0,#0x18
+ 00000026            ; SCOPE-END
+   68: }
+ 00000026  4770      BX          R14
+ 00000028          ENDP ; 'getc0?T'
+
+
+*** CODE SEGMENT '?PR?getc1?T?uart':
+   71: {
+ 00000000            ; SCOPE-START
+   74: do
+ 00000000          L_14:
+   76: f=U1LSR;
+ 00000000  4800      LDR         R0,=0xE0010014
+ 00000002  7801      LDRB        R1,[R0,#0x0]
+ 00000004  ---- Variable 'f' assigned to Register 'R1' ----
+   77: f=f&0x01;
+ 00000004  1C08      MOV         R0,R1 ; f
+ 00000006  0601      LSL         R1,R0,#0x18 ; f
+ 00000008  0E09      LSR         R1,R1,#0x18
+ 0000000A  2001      MOV         R0,#0x1
+ 0000000C  4001      AND         R1,R0
+ 0000000E  0609      LSL         R1,R1,#0x18
+ 00000010  0E09      LSR         R1,R1,#0x18
+   78: }
+ 00000012  1C08      MOV         R0,R1 ; f
+ 00000014  0600      LSL         R0,R0,#0x18 ; f
+ 00000016  0E00      LSR         R0,R0,#0x18
+ 00000018  2800      CMP         R0,#0x0
+ 0000001A  D0F1      BEQ         L_14  ; T=0x00000000
+   80: m=U1RBR;
+ 0000001C  4800      LDR         R0,=0xE0010000
+ 0000001E  7801      LDRB        R1,[R0,#0x0]
+ 00000020  ---- Variable 'm' assigned to Register 'R1' ----
+   82: return(m);
+ 00000020  1C08      MOV         R0,R1 ; m
+ 00000022  0600      LSL         R0,R0,#0x18 ; m
+ 00000024  0E00      LSR         R0,R0,#0x18
+ 00000026            ; SCOPE-END
+   83: }
+ 00000026  4770      BX          R14
+ 00000028          ENDP ; 'getc1?T'
+
+
+*** CODE SEGMENT '?PR?puts0?T?uart':
+   86:  void puts0(char *i)
+ 00000000  B500      PUSH        {LR}
+ 00000002  1C03      MOV         R3,R0 ; i
+ 00000004  ---- Variable 'i' assigned to Register 'R3' ----
+   89:       while(*i)
+ 00000004  E004      B           L_19  ; T=0x00000010
+ 00000006          L_21:
+   91:       putc0(*i++);
+ 00000006  1C18      MOV         R0,R3 ; i
+ 00000008  3301      ADD         R3,#0x1
+ 0000000A  7800      LDRB        R0,[R0,#0x0] ; i
+ 0000000C  F7FF      BL          putc0?T  ; T=0x0001  (1)
+ 0000000E  FFF8      BL          putc0?T  ; T=0x0001  (2)
+   93:       }
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 6   
+
+ 00000010          L_19:
+ 00000010  1C18      MOV         R0,R3 ; i
+ 00000012  7800      LDRB        R0,[R0,#0x0] ; i
+ 00000014  2800      CMP         R0,#0x0
+ 00000016  D1F6      BNE         L_21  ; T=0x00000006
+   95:    }
+ 00000018  BC08      POP         {R3}
+ 0000001A  4718      BX          R3
+ 0000001C          ENDP ; 'puts0?T'
+
+
+*** CODE SEGMENT '?PR?gets0?T?uart':
+   98:    void gets0(char *j)
+ 00000000  B500      PUSH        {LR}
+ 00000002  1C02      MOV         R2,R0 ; j
+ 00000004  ---- Variable 'j' assigned to Register 'R2' ----
+   99:       {
+ 00000004            ; SCOPE-START
+  101:          while(1)
+ 00000004          L_25:
+  103:          c=getc0();
+ 00000004  F7FF      BL          getc0?T  ; T=0x0001  (1)
+ 00000006  FFFC      BL          getc0?T  ; T=0x0001  (2)
+ 00000008  1C03      MOV         R3,R0 ; c
+ 0000000A  ---- Variable 'c' assigned to Register 'R3' ----
+  104:             if(c==0x0D)
+ 0000000A  1C18      MOV         R0,R3 ; c
+ 0000000C  0600      LSL         R0,R0,#0x18 ; c
+ 0000000E  0E00      LSR         R0,R0,#0x18
+ 00000010  280D      CMP         R0,#0xD
+ 00000012  D004      BEQ         L_24  ; T=0x0000001E
+  105:             break;
+ 00000014          L_27:
+  107:          *j++=c;
+ 00000014  1C19      MOV         R1,R3 ; c
+ 00000016  1C10      MOV         R0,R2 ; j
+ 00000018  3201      ADD         R2,#0x1
+ 0000001A  7001      STRB        R1,[R0,#0x0] ; j
+  109:          }
+ 0000001C  E7F2      B           L_25  ; T=0x00000004
+ 0000001E          L_24:
+  110:          *j='\0';
+ 0000001E  2100      MOV         R1,#0x0
+ 00000020  1C10      MOV         R0,R2 ; j
+ 00000022  7001      STRB        R1,[R0,#0x0] ; j
+ 00000024            ; SCOPE-END
+  112:       }
+ 00000024  BC08      POP         {R3}
+ 00000026  4718      BX          R3
+ 00000028          ENDP ; 'gets0?T'
+
+
+*** CODE SEGMENT '?PR?puts1?T?uart':
+  116: void puts1(char *i)
+ 00000000  B500      PUSH        {LR}
+ 00000002  1C03      MOV         R3,R0 ; i
+ 00000004  ---- Variable 'i' assigned to Register 'R3' ----
+  119:       while(*i)
+ 00000004  E004      B           L_29  ; T=0x00000010
+ 00000006          L_31:
+  121:       putc1(*i++);
+ 00000006  1C18      MOV         R0,R3 ; i
+ 00000008  3301      ADD         R3,#0x1
+ 0000000A  7800      LDRB        R0,[R0,#0x0] ; i
+ 0000000C  F7FF      BL          putc1?T  ; T=0x0001  (1)
+ 0000000E  FFF8      BL          putc1?T  ; T=0x0001  (2)
+  123:       }
+ 00000010          L_29:
+ 00000010  1C18      MOV         R0,R3 ; i
+ 00000012  7800      LDRB        R0,[R0,#0x0] ; i
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 7   
+
+ 00000014  2800      CMP         R0,#0x0
+ 00000016  D1F6      BNE         L_31  ; T=0x00000006
+  125:    }
+ 00000018  BC08      POP         {R3}
+ 0000001A  4718      BX          R3
+ 0000001C          ENDP ; 'puts1?T'
+
+
+*** CODE SEGMENT '?PR?gets1?T?uart':
+  128:    void gets1(char *j)
+ 00000000  B500      PUSH        {LR}
+ 00000002  1C02      MOV         R2,R0 ; j
+ 00000004  ---- Variable 'j' assigned to Register 'R2' ----
+  129:       {
+ 00000004            ; SCOPE-START
+  131:          while(1)
+ 00000004          L_35:
+  133:          c=getc1();
+ 00000004  F7FF      BL          getc1?T  ; T=0x0001  (1)
+ 00000006  FFFC      BL          getc1?T  ; T=0x0001  (2)
+ 00000008  1C03      MOV         R3,R0 ; c
+ 0000000A  ---- Variable 'c' assigned to Register 'R3' ----
+  134:             if(c==0x0D)
+ 0000000A  1C18      MOV         R0,R3 ; c
+ 0000000C  0600      LSL         R0,R0,#0x18 ; c
+ 0000000E  0E00      LSR         R0,R0,#0x18
+ 00000010  280D      CMP         R0,#0xD
+ 00000012  D004      BEQ         L_34  ; T=0x0000001E
+  135:             break;
+ 00000014          L_37:
+  137:          *j++=c;
+ 00000014  1C19      MOV         R1,R3 ; c
+ 00000016  1C10      MOV         R0,R2 ; j
+ 00000018  3201      ADD         R2,#0x1
+ 0000001A  7001      STRB        R1,[R0,#0x0] ; j
+  139:          }
+ 0000001C  E7F2      B           L_35  ; T=0x00000004
+ 0000001E          L_34:
+  140:          *j='\0';
+ 0000001E  2100      MOV         R1,#0x0
+ 00000020  1C10      MOV         R0,R2 ; j
+ 00000022  7001      STRB        R1,[R0,#0x0] ; j
+ 00000024            ; SCOPE-END
+  142:       }
+ 00000024  BC08      POP         {R3}
+ 00000026  4718      BX          R3
+ 00000028          ENDP ; 'gets1?T'
+
+
+*** CODE SEGMENT '?PR?clear_rxfifo_uart0?T?uart':
+  147: {
+ 00000000            ; SCOPE-START
+  149: U0FCR |=0X02;
+ 00000000  2202      MOV         R2,#0x2
+ 00000002  4800      LDR         R0,=0xE000C008
+ 00000004  7801      LDRB        R1,[R0,#0x0]
+ 00000006  4311      ORR         R1,R2
+ 00000008  7001      STRB        R1,[R0,#0x0]
+  151: do
+ 0000000A          L_39:
+  153: f=U0FCR;
+ 0000000A  4800      LDR         R0,=0xE000C008
+ 0000000C  7801      LDRB        R1,[R0,#0x0]
+ 0000000E  ---- Variable 'f' assigned to Register 'R1' ----
+  154: f=f&0x02;
+ 0000000E  1C08      MOV         R0,R1 ; f
+ 00000010  0601      LSL         R1,R0,#0x18 ; f
+ 00000012  0E09      LSR         R1,R1,#0x18
+ 00000014  2002      MOV         R0,#0x2
+ 00000016  4001      AND         R1,R0
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 8   
+
+ 00000018  0609      LSL         R1,R1,#0x18
+ 0000001A  0E09      LSR         R1,R1,#0x18
+  155: }
+ 0000001C  1C08      MOV         R0,R1 ; f
+ 0000001E  0600      LSL         R0,R0,#0x18 ; f
+ 00000020  0E00      LSR         R0,R0,#0x18
+ 00000022  2802      CMP         R0,#0x2
+ 00000024  D0F1      BEQ         L_39  ; T=0x0000000A
+ 00000026            ; SCOPE-END
+  158: }
+ 00000026  4770      BX          R14
+ 00000028          ENDP ; 'clear_rxfifo_uart0?T'
+
+
+*** CODE SEGMENT '?PR?clear_rxfifo_uart1?T?uart':
+  160: {
+ 00000000            ; SCOPE-START
+  162: U1FCR |=0X02;
+ 00000000  2202      MOV         R2,#0x2
+ 00000002  4800      LDR         R0,=0xE0010008
+ 00000004  7801      LDRB        R1,[R0,#0x0]
+ 00000006  4311      ORR         R1,R2
+ 00000008  7001      STRB        R1,[R0,#0x0]
+  164: do
+ 0000000A          L_43:
+  166: f=U1FCR;
+ 0000000A  4800      LDR         R0,=0xE0010008
+ 0000000C  7801      LDRB        R1,[R0,#0x0]
+ 0000000E  ---- Variable 'f' assigned to Register 'R1' ----
+  167: f=f&0x02;
+ 0000000E  1C08      MOV         R0,R1 ; f
+ 00000010  0601      LSL         R1,R0,#0x18 ; f
+ 00000012  0E09      LSR         R1,R1,#0x18
+ 00000014  2002      MOV         R0,#0x2
+ 00000016  4001      AND         R1,R0
+ 00000018  0609      LSL         R1,R1,#0x18
+ 0000001A  0E09      LSR         R1,R1,#0x18
+  168: }
+ 0000001C  1C08      MOV         R0,R1 ; f
+ 0000001E  0600      LSL         R0,R0,#0x18 ; f
+ 00000020  0E00      LSR         R0,R0,#0x18
+ 00000022  2802      CMP         R0,#0x2
+ 00000024  D0F1      BEQ         L_43  ; T=0x0000000A
+ 00000026            ; SCOPE-END
+  170: }
+ 00000026  4770      BX          R14
+ 00000028          ENDP ; 'clear_rxfifo_uart1?T'
+
+
+*** CODE SEGMENT '?PR?main?uart':
+    4:  void main()
+ 00000000  B500      PUSH        {LR}
+ 00000002  B081      SUB         R13,#0x4
+    5:  {
+ 00000004            ; SCOPE-START
+    6:  char a[]="";
+ 00000004  4800      LDR         R1,=?tpl?0001 ; ?tpl?0001
+ 00000006  A800      ADD         R0,R13,#0x0
+ 00000008  2201      MOV         R2,#0x1
+ 0000000A          L_52:
+ 0000000A  780B      LDRB        R3,[R1,#0x0]
+ 0000000C  7003      STRB        R3,[R0,#0x0]
+ 0000000E  1C49      ADD         R1,R1,#0x1
+ 00000010  1C40      ADD         R0,R0,#0x1
+ 00000012  1E52      SUB         R2,R2,#0x1
+ 00000014  D1F9      BNE         L_52  ; T=0x0000000A
+    8:      uart0_init();
+ 00000016  F7FF      BL          uart0_init?T  ; T=0x0001  (1)
+ 00000018  FFF3      BL          uart0_init?T  ; T=0x0001  (2)
+    9:     uart1_init();
+ARM COMPILER V2.53,  uart                                                                  13/01/15  11:56:19  PAGE 9   
+
+ 0000001A  F7FF      BL          uart1_init?T  ; T=0x0001  (1)
+ 0000001C  FFF1      BL          uart1_init?T  ; T=0x0001  (2)
+   11:     while(1)
+ 0000001E          L_49:
+   13:         gets0(a);
+ 0000001E  AC00      ADD         R4,R13,#0x0
+ 00000020  1C20      MOV         R0,R4
+ 00000022  F7FF      BL          gets0?T  ; T=0x0001  (1)
+ 00000024  FFED      BL          gets0?T  ; T=0x0001  (2)
+   14:         puts0(a);
+ 00000026  1C20      MOV         R0,R4
+ 00000028  F7FF      BL          puts0?T  ; T=0x0001  (1)
+ 0000002A  FFEA      BL          puts0?T  ; T=0x0001  (2)
+   15:         puts1(a);
+ 0000002C  1C20      MOV         R0,R4
+ 0000002E  F7FF      BL          puts1?T  ; T=0x0001  (1)
+ 00000030  FFE7      BL          puts1?T  ; T=0x0001  (2)
+   16:     }
+ 00000032  E7F4      B           L_49  ; T=0x0000001E
+ 00000034            ; SCOPE-END
+   17:  }
+ 00000034  B001      ADD         R13,#0x4
+ 00000036  BC08      POP         {R3}
+ 00000038  4718      BX          R3
+ 0000003A          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =         1
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

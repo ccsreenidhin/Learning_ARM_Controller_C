@@ -1,0 +1,120 @@
+ARM COMPILER V2.53,  armc2                                                                 12/03/15  12:30:57  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE armc2
+OBJECT MODULE PLACED IN armc2.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe armc2.c THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include <LPC214X.h>
+    2          void main()
+    3          {
+    4   1       int i;
+    5   1       unsigned long int a;
+    6   1       IODIR0=0xfffffffe;
+    7   1       while(1)
+    8   1         {
+    9   2         while(!((a=IOPIN0)&(0x00000001)));
+   10   2         while((a=IOPIN0)&(0x00000001));
+   11   2         for(i=0;i<1000;i++);
+   12   2         if(IOSET0==0xfffffffe) 
+   13   2         IOCLR0=0XFFFFFFFF;
+   14   2         else
+   15   2         IOSET0=0XFFFFFFFFE;
+*** WARNING C108 IN LINE 15 OF ARMC2.C: '=': possible value truncation
+   16   2         a=0;
+   17   2         }
+   18   1      }
+ARM COMPILER V2.53,  armc2                                                                 12/03/15  12:30:57  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?main?armc2':
+    2: void main()
+ 00000000  B500      PUSH        {LR}
+    3: {
+ 00000002            ; SCOPE-START
+    6:  IODIR0=0xfffffffe;
+ 00000002  4800      LDR         R1,=0xFFFFFFFE
+ 00000004  4800      LDR         R0,=0xE0028008
+ 00000006  6001      STR         R1,[R0,#0x0]
+    9:    while(!((a=IOPIN0)&(0x00000001)));
+ 00000008          L_8:
+ 00000008          L_5:
+ 00000008  4800      LDR         R0,=0xE0028000
+ 0000000A  6801      LDR         R1,[R0,#0x0]
+ 0000000C  1C08      MOV         R0,R1 ; a
+ 0000000E  ---- Variable 'a' assigned to Register 'R0' ----
+ 0000000E  2201      MOV         R2,#0x1
+ 00000010  4211      TST         R1,R2
+ 00000012  D0F9      BEQ         L_5  ; T=0x00000008
+   10:    while((a=IOPIN0)&(0x00000001));
+ 00000014          L_9:
+ 00000014  4800      LDR         R0,=0xE0028000
+ 00000016  6801      LDR         R1,[R0,#0x0]
+ 00000018  1C08      MOV         R0,R1 ; a
+ 0000001A  2201      MOV         R2,#0x1
+ 0000001C  4211      TST         R1,R2
+ 0000001E  D1F9      BNE         L_9  ; T=0x00000014
+   11:    for(i=0;i<1000;i++);
+ 00000020  2100      MOV         R1,#0x0
+ 00000022  ---- Variable 'i' assigned to Register 'R1' ----
+ 00000022          L_13:
+ 00000022  3101      ADD         R1,#0x1
+ 00000024  1C0A      MOV         R2,R1 ; i
+ 00000026  4BFA      LDR         R3,=0x3E8
+ 00000028  429A      CMP         R2,R3 ; i
+ 0000002A  DBFA      BLT         L_13  ; T=0x00000022
+   12:    if(IOSET0==0xfffffffe) 
+ 0000002C  4800      LDR         R1,=0xE0028004
+ 0000002E  6809      LDR         R1,[R1,#0x0]
+ 00000030  2202      MOV         R2,#0x2
+ 00000032  42D1      CMN         R1,R2
+ 00000034  D103      BNE         L_18  ; T=0x0000003E
+   13:    IOCLR0=0XFFFFFFFF;
+ 00000036  4800      LDR         R2,=0xFFFFFFFF
+ 00000038  4800      LDR         R1,=0xE002800C
+ 0000003A  600A      STR         R2,[R1,#0x0]
+ 0000003C  E002      B           L_19  ; T=0x00000044
+ 0000003E          L_18:
+   15:    IOSET0=0XFFFFFFFFE;
+ 0000003E  4800      LDR         R1,=0xFFFFFFFE
+ 00000040  4800      LDR         R0,=0xE0028004
+ 00000042  6001      STR         R1,[R0,#0x0]
+ 00000044          L_19:
+   16:    a=0;
+ 00000044  2000      MOV         R0,#0x0
+   17:    }
+ 00000046  E7DF      B           L_8  ; T=0x00000008
+ARM COMPILER V2.53,  armc2                                                                 12/03/15  12:30:57  PAGE 3   
+
+ 00000048            ; SCOPE-END
+   18: }
+ 00000048  BC08      POP         {R3}
+ 0000004A  4718      BX          R3
+ 0000004C          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

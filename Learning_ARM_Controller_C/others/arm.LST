@@ -1,0 +1,44 @@
+AA MACRO ASSEMBLER RARM                                                                     11/03/15 11:10:49 PAGE     1
+
+
+MACRO ASSEMBLER AA V2.50
+OBJECT MODULE PLACED IN arm.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\ARM\BIN\AA.exe arm.asm BROWSE DEBUG EP
+
+LOC      OBJ             LINE     SOURCE
+
+00000000                  1     AREA INI,CODE,READWRITE
+                          2     PUBLIC ?C?INIT
+00000000                  3     ?C?INIT
+00000000 E3A00004         4     MOV R0,#04
+00000004 E3A01002         5     MOV R1,#02
+00000008 E3A02000         6     MOV R2,#00
+0000000C E3A03001         7     MOV R3,#01
+00000010 E0500001         8     G:SUBS R0,R0,R1
+00000014 50822003         9     ADDPL R2,R2,R3
+00000018 5AFFFFFC        10     BPL G
+0000001C E0800001        11     ADD R0,R0,R1
+00000020 E3A04000        12     MOV R4,#00
+00000024 E1500004        13     CMP R0,R4
+00000028 0A000001        14     BEQ L
+0000002C E3A05001        15     MOV R5,#01
+00000030 EA000000        16     B L1
+00000034 E3A05000        17     L:MOV R5,#00
+00000038 EAFFFFFE        18     L1:B L1
+                         19     END
+AA MACRO ASSEMBLER RARM                                                                     11/03/15 11:10:49 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E              T Y P E  V A L U E     ATTRIBUTES
+
+?C?INIT . . . . . .  C  ADDR  0000H     R   SEG=INI
+G . . . . . . . . .  C  ADDR  0010H     R   SEG=INI
+INI . . . . . . . .  C  SEG   003CH         REL=UNIT, ALN=BYTE
+L . . . . . . . . .  C  ADDR  0034H     R   SEG=INI
+L1. . . . . . . . .  C  ADDR  0038H     R   SEG=INI
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S).

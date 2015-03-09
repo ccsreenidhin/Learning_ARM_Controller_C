@@ -1,0 +1,95 @@
+ARM COMPILER V2.53,  USARTX                                                                16/03/15  13:34:34  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE USARTX
+OBJECT MODULE PLACED IN USARTX.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe USARTX.C THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include<LPC214X.h>
+    2          void main()
+    3          {
+    4   1       PINSEL0=0X05;
+    5   1        U0LCR=0X83;
+    6   1          U0DLM=0X00;
+    7   1          U0DLL=97;
+    8   1          U0LCR&=~(1<<7);
+    9   1      while(1)
+   10   1       {
+   11   2          U0THR='A';
+   12   2          while(!(U0LSR&(1<<6)));
+   13   2      
+   14   2        }
+   15   1      }
+ARM COMPILER V2.53,  USARTX                                                                16/03/15  13:34:34  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?main?USARTX':
+    2: void main()
+ 00000000  B500      PUSH        {LR}
+    4:  PINSEL0=0X05;
+ 00000002  2105      MOV         R1,#0x5
+ 00000004  4800      LDR         R0,=0xE002C000
+ 00000006  6001      STR         R1,[R0,#0x0]
+    5:   U0LCR=0X83;
+ 00000008  2183      MOV         R1,#0x83
+ 0000000A  4800      LDR         R0,=0xE000C00C
+ 0000000C  7001      STRB        R1,[R0,#0x0]
+    6:     U0DLM=0X00;
+ 0000000E  2100      MOV         R1,#0x0
+ 00000010  4800      LDR         R0,=0xE000C004
+ 00000012  7001      STRB        R1,[R0,#0x0]
+    7:     U0DLL=97;
+ 00000014  2161      MOV         R1,#0x61
+ 00000016  4800      LDR         R0,=0xE000C000
+ 00000018  7001      STRB        R1,[R0,#0x0]
+    8:     U0LCR&=~(1<<7);
+ 0000001A  227F      MOV         R2,#0x7F
+ 0000001C  4800      LDR         R0,=0xE000C00C
+ 0000001E  7801      LDRB        R1,[R0,#0x0]
+ 00000020  4011      AND         R1,R2
+ 00000022  7001      STRB        R1,[R0,#0x0]
+    9: while(1)
+ 00000024          L_3:
+   11:     U0THR='A';
+ 00000024  2141      MOV         R1,#0x41
+ 00000026  4800      LDR         R0,=0xE000C000
+ 00000028  7001      STRB        R1,[R0,#0x0]
+   12:     while(!(U0LSR&(1<<6)));
+ 0000002A          L_5:
+ 0000002A  4800      LDR         R0,=0xE000C014
+ 0000002C  7800      LDRB        R0,[R0,#0x0]
+ 0000002E  2140      MOV         R1,#0x40
+ 00000030  4208      TST         R0,R1
+ 00000032  D0FA      BEQ         L_5  ; T=0x0000002A
+   14:   }
+ 00000034  E7F6      B           L_3  ; T=0x00000024
+ 00000036  BC08      POP         {R3}
+ 00000038  4718      BX          R3
+ 0000003A          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

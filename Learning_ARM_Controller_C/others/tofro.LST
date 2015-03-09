@@ -1,0 +1,146 @@
+ARM COMPILER V2.53,  tofro                                                                 16/03/15  10:56:30  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE tofro
+OBJECT MODULE PLACED IN tofro.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe tofro.c THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include<LPC214X.h>
+    2          void main()
+    3          {
+    4   1       unsigned int i;
+    5   1       unsigned int long a=1;
+    6   1       IODIR0=0XFFFFFFFF;
+    7   1       while(1)
+    8   1        {
+    9   2        a=0X00000001;
+   10   2        while(a!=0x80000000)
+   11   2         {
+   12   3          IOCLR0=0XFFFFFFFF;
+   13   3          a=a<<1;
+   14   3          IOSET0=a;
+   15   3          for(i=0;i<1000000;i++);
+   16   3         }
+   17   2         a=0X80000000;
+   18   2         if(a==0X80000000)
+   19   2         {
+   20   3          while(a!=0x00000001)
+   21   3          {
+   22   4          IOCLR0=0XFFFFFFFF;
+   23   4          a=a>>1;
+   24   4          IOSET0=a;
+   25   4          for(i=0;i<1000000;i++);
+   26   4          }
+   27   3         }
+   28   2        }
+   29   1      }
+ARM COMPILER V2.53,  tofro                                                                 16/03/15  10:56:30  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?main?tofro':
+    2: void main()
+ 00000000  B500      PUSH        {LR}
+    3: {
+ 00000002            ; SCOPE-START
+    5:  unsigned int long a=1;
+ 00000002  2001      MOV         R0,#0x1
+ 00000004  ---- Variable 'a' assigned to Register 'R0' ----
+    6:  IODIR0=0XFFFFFFFF;
+ 00000004  4800      LDR         R1,=0xFFFFFFFF
+ 00000006  4800      LDR         R0,=0xE0028008
+ 00000008  6001      STR         R1,[R0,#0x0]
+    7:  while(1)
+ 0000000A          L_3:
+    9:   a=0X00000001;
+ 0000000A  2001      MOV         R0,#0x1
+   10:   while(a!=0x80000000)
+ 0000000C          L_7:
+   12:     IOCLR0=0XFFFFFFFF;
+ 0000000C  4800      LDR         R2,=0xFFFFFFFF
+ 0000000E  4800      LDR         R1,=0xE002800C
+ 00000010  600A      STR         R2,[R1,#0x0]
+   13:     a=a<<1;
+ 00000012  0040      LSL         R0,R0,#0x1 ; a
+   14:     IOSET0=a;
+ 00000014  1C02      MOV         R2,R0 ; a
+ 00000016  4800      LDR         R1,=0xE0028004
+ 00000018  600A      STR         R2,[R1,#0x0]
+   15:     for(i=0;i<1000000;i++);
+ 0000001A  2100      MOV         R1,#0x0
+ 0000001C  ---- Variable 'i' assigned to Register 'R1' ----
+ 0000001C          L_9:
+ 0000001C  3101      ADD         R1,#0x1
+ 0000001E  1C0A      MOV         R2,R1 ; i
+ 00000020  4800      LDR         R3,=0xF4240
+ 00000022  429A      CMP         R2,R3 ; i
+ 00000024  D3FA      BCC         L_9  ; T=0x0000001C
+   16:    }
+ 00000026  1C02      MOV         R2,R0 ; a
+ 00000028  4800      LDR         R3,=0x80000000
+ 0000002A  42DA      CMN         R2,R3 ; a
+ 0000002C  D1EE      BNE         L_7  ; T=0x0000000C
+   17:    a=0X80000000;
+ 0000002E  1C18      MOV         R0,R3 ; a
+   18:    if(a==0X80000000)
+ 00000030  1C02      MOV         R2,R0 ; a
+ 00000032  42DA      CMN         R2,R3 ; a
+ 00000034  D1E9      BNE         L_3  ; T=0x0000000A
+   20:     while(a!=0x00000001)
+ 00000036          L_17:
+   22:     IOCLR0=0XFFFFFFFF;
+ 00000036  4800      LDR         R2,=0xFFFFFFFF
+ 00000038  4800      LDR         R1,=0xE002800C
+ 0000003A  600A      STR         R2,[R1,#0x0]
+   23:     a=a>>1;
+ 0000003C  0840      LSR         R0,R0,#0x1 ; a
+   24:     IOSET0=a;
+ARM COMPILER V2.53,  tofro                                                                 16/03/15  10:56:30  PAGE 3   
+
+ 0000003E  1C02      MOV         R2,R0 ; a
+ 00000040  4800      LDR         R1,=0xE0028004
+ 00000042  600A      STR         R2,[R1,#0x0]
+   25:     for(i=0;i<1000000;i++);
+ 00000044  2100      MOV         R1,#0x0
+ 00000046          L_19:
+ 00000046  3101      ADD         R1,#0x1
+ 00000048  1C0A      MOV         R2,R1 ; i
+ 0000004A  4800      LDR         R3,=0xF4240
+ 0000004C  429A      CMP         R2,R3 ; i
+ 0000004E  D3FA      BCC         L_19  ; T=0x00000046
+   26:     }
+ 00000050  1C02      MOV         R2,R0 ; a
+ 00000052  2A01      CMP         R2,#0x1 ; a
+ 00000054  D1EF      BNE         L_17  ; T=0x00000036
+   28:   }
+ 00000056  E7D8      B           L_3  ; T=0x0000000A
+ 00000058            ; SCOPE-END
+ 00000058  BC08      POP         {R3}
+ 0000005A  4718      BX          R3
+ 0000005C          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

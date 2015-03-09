@@ -1,0 +1,42 @@
+AA MACRO ASSEMBLER RARM2                                                                    11/03/15 12:12:26 PAGE     1
+
+
+MACRO ASSEMBLER AA V2.50
+OBJECT MODULE PLACED IN arm2.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\ARM\BIN\AA.exe arm2.asm BROWSE DEBUG EP
+
+LOC      OBJ             LINE     SOURCE
+
+00000000                  1     AREA INI,CODE,READWRITE
+                          2     PUBLIC ?C?INIT
+00000000                  3     ?C?INIT
+00000000 E3A0001C         4     LDR R0,=S
+00000004 E3A01101         5     LDR R1,=0X40000000
+00000008 E3A04004         6     MOV R4,#04
+0000000C E4903004         7     L1:LDR R3,[R0],#04
+00000010 E4813004         8     STR R3,[R1],#04
+00000014 E2544001         9     SUBS R4,R4,#01
+00000018 5AFFFFFB        10     BPL L1
+0000001C 00000001        11     S:DD 1,2,3,4,5
+00000020 00000002               
+00000024 00000003               
+00000028 00000004               
+0000002C 00000005               
+00000030 EAFFFFFE        12     L:B L
+                         13     END
+AA MACRO ASSEMBLER RARM2                                                                    11/03/15 12:12:26 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E              T Y P E  V A L U E     ATTRIBUTES
+
+?C?INIT . . . . . .  C  ADDR  0000H     R   SEG=INI
+INI . . . . . . . .  C  SEG   0034H         REL=UNIT, ALN=BYTE
+L . . . . . . . . .  C  ADDR  0030H     R   SEG=INI
+L1. . . . . . . . .  C  ADDR  000CH     R   SEG=INI
+S . . . . . . . . .  C  ADDR  001CH     R   SEG=INI
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S).

@@ -1,0 +1,111 @@
+ARM COMPILER V2.53,  armc1                                                                 12/03/15  10:51:02  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE armc1
+OBJECT MODULE PLACED IN armc1.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe armc1.c THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include <LPC214X.h>
+    2          void main()
+    3          {
+    4   1      int i;
+    5   1      IODIR0=0xffffffff;
+    6   1      while(1)
+    7   1      {
+    8   2      IOSET0=0xffffffff;
+    9   2      for(i=0;i<1000;i++)
+   10   2      for(i=0;i<1000;i++);
+   11   2      IOCLR0=0xffffffff;
+   12   2      for(i=0;i<1000;i++)
+   13   2      for(i=0;i<1000;i++);
+   14   2      }
+   15   1      
+   16   1      }
+ARM COMPILER V2.53,  armc1                                                                 12/03/15  10:51:02  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?main?armc1':
+    2: void main()
+ 00000000  B500      PUSH        {LR}
+    3: {
+ 00000002            ; SCOPE-START
+    5: IODIR0=0xffffffff;
+ 00000002  4800      LDR         R1,=0xFFFFFFFF
+ 00000004  4800      LDR         R0,=0xE0028008
+ 00000006  6001      STR         R1,[R0,#0x0]
+    6: while(1)
+ 00000008          L_3:
+    8: IOSET0=0xffffffff;
+ 00000008  4800      LDR         R1,=0xFFFFFFFF
+ 0000000A  4800      LDR         R0,=0xE0028004
+ 0000000C  6001      STR         R1,[R0,#0x0]
+    9: for(i=0;i<1000;i++)
+ 0000000E  2000      MOV         R0,#0x0
+ 00000010  ---- Variable 'i' assigned to Register 'R0' ----
+   10: for(i=0;i<1000;i++);
+ 00000010          L_14:
+ 00000010  2000      MOV         R0,#0x0
+ 00000012          L_10:
+ 00000012  3001      ADD         R0,#0x1
+ 00000014  1C01      MOV         R1,R0 ; i
+ 00000016  4AFA      LDR         R2,=0x3E8
+ 00000018  4291      CMP         R1,R2 ; i
+ 0000001A  DBFA      BLT         L_10  ; T=0x00000012
+ 0000001C  4800      LDR         R0,=0x3E9
+ 0000001E  1C01      MOV         R1,R0 ; i
+ 00000020  4291      CMP         R1,R2 ; i
+ 00000022  DBF5      BLT         L_14  ; T=0x00000010
+   11: IOCLR0=0xffffffff;
+ 00000024  4800      LDR         R1,=0xFFFFFFFF
+ 00000026  4800      LDR         R0,=0xE002800C
+ 00000028  6001      STR         R1,[R0,#0x0]
+   12: for(i=0;i<1000;i++)
+ 0000002A  2000      MOV         R0,#0x0
+   13: for(i=0;i<1000;i++);
+ 0000002C          L_24:
+ 0000002C  2000      MOV         R0,#0x0
+ 0000002E          L_20:
+ 0000002E  3001      ADD         R0,#0x1
+ 00000030  1C01      MOV         R1,R0 ; i
+ 00000032  4AFA      LDR         R2,=0x3E8
+ 00000034  4291      CMP         R1,R2 ; i
+ 00000036  DBFA      BLT         L_20  ; T=0x0000002E
+ 00000038  4800      LDR         R0,=0x3E9
+ 0000003A  1C01      MOV         R1,R0 ; i
+ 0000003C  4291      CMP         R1,R2 ; i
+ 0000003E  DBF5      BLT         L_24  ; T=0x0000002C
+   14: }
+ 00000040  E7E2      B           L_3  ; T=0x00000008
+ 00000042            ; SCOPE-END
+ 00000042  BC08      POP         {R3}
+ 00000044  4718      BX          R3
+ 00000046          ENDP ; 'main'
+
+
+ARM COMPILER V2.53,  armc1                                                                 12/03/15  10:51:02  PAGE 3   
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

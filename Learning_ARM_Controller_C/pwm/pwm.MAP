@@ -1,0 +1,81 @@
+LARM LINKER/LOCATER V2.53                                                               01/16/2015  12:24:02  PAGE 1
+
+
+LARM LINKER/LOCATER V2.53, INVOKED BY:
+C:\KEIL\ARM\BIN\LA.EXE Startup.obj, pwm.obj TO pwm CASE CLASSES (DATA (0X40000000-0X40007FFF), CODE (0X0-0X7FFFF), CONST
+>>  (0X0-0X7FFFF))
+
+
+CPU MODE: LITTLE ENDIAN
+
+
+INPUT MODULES INCLUDED:
+  Startup.obj (STARTUP)
+         COMMENT TYPE 0: AA V2.50
+  pwm.obj (pwm)
+         COMMENT TYPE 0: CARM V2.53
+  C:\KEIL\ARM\LIB\CAL.LIB (FIQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (IRQ)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (DABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (PABT)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (SWI)
+         COMMENT TYPE 0: AA V2.50
+  C:\KEIL\ARM\LIB\CAL.LIB (UNDEF)
+         COMMENT TYPE 0: AA V2.50
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  pwm (STARTUP)
+
+BASE       START      END        USED       MEMORY CLASS
+========================================================
+00000000H  40000000H  40007FFFH  00000490H  DATA
+00000000H  00000000H  0007FFFFH  000001F4H  CODE
+00000000H  00000000H  0007FFFFH  00000010H  CONST
+
+
+
+MEMORY MAP OF MODULE:  pwm (STARTUP)
+
+START      STOP       LENGTH    ALIGN  RELOC  MEMORY CLASS   SEGMENT NAME
+=========================================================================
+00000000H  0000010FH  00000110H     4  AT..   CODE           STARTUPCODE
+00000110H  00000117H  00000008H     4  UNIT   CONST          ?C_CLRSEG
+00000118H  0000011FH  00000008H     4  UNIT   CONST          ?C_INITSEG
+00000120H  000001EBH  000000CCH     4  UNIT   CODE           ?PR?main?pwm
+000001ECH  000001EFH  00000004H     4  UNIT   CODE           ?C?FIQ
+000001F0H  000001F3H  00000004H     4  UNIT   CODE           ?C?IRQ
+000001F4H  000001F7H  00000004H     4  UNIT   CODE           ?C?DABT
+000001F8H  000001FBH  00000004H     4  UNIT   CODE           ?C?PABT
+000001FCH  00000203H  00000008H     4  UNIT   CODE           ?C?UNDEF
+00000204H  3FFFFFFFH  3FFFFDFCH   ---  ---    **GAP**
+40000000H  4000048FH  00000490H     4  UNIT   DATA           STACK
+
+
+
+PUBLIC SYMBOLS OF MODULE:  pwm (STARTUP)
+
+      VALUE      CLASS    TYPE      PUBLIC SYMBOL NAME
+      ================================================
+      00000110H  ---      ---       ?C?CLRTAB
+      00000120H  ---      ---       ?C?INIT
+      00000118H  ---      ---       ?C?INITTAB
+      000001F4H  CODE     ---       DAbt_Handler?A
+      000001ECH  CODE     ---       FIQ_Handler?A
+      000001F0H  CODE     ---       IRQ_Handler?A
+      000001F8H  CODE     ---       PAbt_Handler?A
+LARM LINKER/LOCATER V2.53                                                             01/16/2015  12:24:02  PAGE 2
+
+
+      000001FCH  CODE     ---       SWI_Handler?A
+      00000200H  CODE     ---       Undef_Handler?A
+      00000000H  CODE     ---       __startup
+      000000F0H  CODE     ---       exit?A
+      000000F4H  CODE     ---       exit?T
+      00000154H  CODE     ---       main
+
+Program Size: data=1168 const=16 code=500
+LARM RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

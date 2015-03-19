@@ -1,0 +1,96 @@
+ARM COMPILER V2.53,  SWITCH                                                                12/01/15  11:51:09  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE SWITCH
+OBJECT MODULE PLACED IN SWITCH.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe SWITCH.C THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include <LPC214X.H>
+    2            void main()
+    3            {
+    4   1      
+    5   1          IODIR0=0XFFFFFFFE;
+    6   1          IODIR1=0XFFFFFFFF;
+    7   1      
+    8   1          while(1)
+    9   1          {
+   10   2          
+   11   2              if(IOPIN0=IOPIN0&0X00000001)
+   12   2              {
+   13   3                  IOSET1=0XFFFF0000;
+   14   3              }
+   15   2              else
+   16   2              {
+   17   3               IOCLR1=0XFFFF0000;
+   18   3              } 
+   19   2      
+   20   2          }
+   21   1          }
+ARM COMPILER V2.53,  SWITCH                                                                12/01/15  11:51:09  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?main?SWITCH':
+    2:   void main()
+ 00000000  B500      PUSH        {LR}
+    5:     IODIR0=0XFFFFFFFE;
+ 00000002  4800      LDR         R1,=0xFFFFFFFE
+ 00000004  4800      LDR         R0,=0xE0028008
+ 00000006  6001      STR         R1,[R0,#0x0]
+    6:     IODIR1=0XFFFFFFFF;
+ 00000008  4800      LDR         R1,=0xFFFFFFFF
+ 0000000A  4800      LDR         R0,=0xE0028018
+ 0000000C  6001      STR         R1,[R0,#0x0]
+    8:     while(1)
+ 0000000E          L_3:
+   11:         if(IOPIN0=IOPIN0&0X00000001)
+ 0000000E  4800      LDR         R0,=0xE0028000
+ 00000010  6800      LDR         R0,[R0,#0x0]
+ 00000012  2101      MOV         R1,#0x1
+ 00000014  4008      AND         R0,R1
+ 00000016  4800      LDR         R1,=0xE0028000
+ 00000018  6008      STR         R0,[R1,#0x0]
+ 0000001A  2800      CMP         R0,#0x0
+ 0000001C  D003      BEQ         L_5  ; T=0x00000026
+   13:             IOSET1=0XFFFF0000;
+ 0000001E  4800      LDR         R1,=0xFFFF0000
+ 00000020  4800      LDR         R0,=0xE0028014
+ 00000022  6001      STR         R1,[R0,#0x0]
+   14:         }
+ 00000024  E7F3      B           L_3  ; T=0x0000000E
+ 00000026          L_5:
+   17:          IOCLR1=0XFFFF0000;
+ 00000026  4800      LDR         R1,=0xFFFF0000
+ 00000028  4800      LDR         R0,=0xE002801C
+ 0000002A  6001      STR         R1,[R0,#0x0]
+   20:     }
+ 0000002C  E7EF      B           L_3  ; T=0x0000000E
+ 0000002E  BC08      POP         {R3}
+ 00000030  4718      BX          R3
+ 00000032          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

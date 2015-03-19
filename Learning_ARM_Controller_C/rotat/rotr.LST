@@ -1,0 +1,182 @@
+ARM COMPILER V2.53,  rotr                                                                  12/01/15  11:28:58  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE rotr
+OBJECT MODULE PLACED IN rotr.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe rotr.c THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include <LPC214X.H>
+    2          #include"DELAY.H"
+    3            void main()
+    4            {
+    5   1          int I=000000001,j;
+    6   1          IODIR0=0XFFFFFFFF;
+    7   1      
+    8   1          while(1)
+    9   1          {
+   10   2           for(j=0;j<=32;j++)
+   11   2           {
+   12   3              IOSET0=I;
+   13   3              delay_ms(50);
+   14   3              IOCLR0=I;
+   15   3              I=I<<1;
+   16   3           }
+   17   2          I=0X00000001;
+   18   2               
+   19   2          }
+   20   1        }
+ARM COMPILER V2.53,  rotr                                                                  12/01/15  11:28:58  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         delay_us?T
+ PUBLIC         delay_ms?T
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?delay_us?T?rotr':
+    1: void delay_us(unsigned int dly)
+ 00000000  ---- Variable 'dly' assigned to Register 'R0' ----
+    2: {
+ 00000000            ; SCOPE-START
+   11: for(b=0;b<dly;b++)
+ 00000000  2100      MOV         R1,#0x0
+ 00000002  ---- Variable 'b' assigned to Register 'R1' ----
+ 00000002  E005      B           L_3  ; T=0x00000010
+   14: for(a=0;a<10;a++)   //in this loop there are 6 instructions getting
+ 00000004          L_10:
+ 00000004  2200      MOV         R2,#0x0
+ 00000006  ---- Variable 'a' assigned to Register 'R2' ----
+   17: }     // 10*6*(1/( 60*10^6) )
+ 00000006          L_6:
+ 00000006  3201      ADD         R2,#0x1
+ 00000008  1C13      MOV         R3,R2 ; a
+ 0000000A  2B0A      CMP         R3,#0xA ; a
+ 0000000C  DBFB      BLT         L_6  ; T=0x00000006
+   20: }
+ 0000000E  3101      ADD         R1,#0x1
+ 00000010          L_3:
+ 00000010  1C0A      MOV         R2,R1 ; b
+ 00000012  1C03      MOV         R3,R0 ; dly
+ 00000014  429A      CMP         R2,R3 ; b
+ 00000016  D3F5      BCC         L_10  ; T=0x00000004
+ 00000018            ; SCOPE-END
+   24: }
+ 00000018  4770      BX          R14
+ 0000001A          ENDP ; 'delay_us?T'
+
+
+*** CODE SEGMENT '?PR?delay_ms?T?rotr':
+   26: void delay_ms(unsigned int dly)
+ 00000000  B410      PUSH        {R4}
+ 00000002  ---- Variable 'dly' assigned to Register 'R0' ----
+   27: {
+ 00000002            ; SCOPE-START
+   30: for(b=0;b<dly;b++)
+ 00000002  2100      MOV         R1,#0x0
+ 00000004  ---- Variable 'b' assigned to Register 'R1' ----
+ 00000004  E00B      B           L_13  ; T=0x0000001E
+   32: for(c=0;c<1000;c++ )
+ 00000006          L_20:
+ 00000006  2200      MOV         R2,#0x0
+ 00000008  ---- Variable 'c' assigned to Register 'R2' ----
+   35: for(a=0;a<10;a++)   //in this loop there are 6 instructions getting
+ 00000008          L_25:
+ 00000008  2300      MOV         R3,#0x0
+ 0000000A  ---- Variable 'a' assigned to Register 'R3' ----
+   38: }     // 10*6*(1/( 60*10^6) )
+ 0000000A          L_21:
+ 0000000A  3301      ADD         R3,#0x1
+ 0000000C  1C1C      MOV         R4,R3 ; a
+ 0000000E  2C0A      CMP         R4,#0xA ; a
+ 00000010  DBFB      BLT         L_21  ; T=0x0000000A
+   41: }
+ARM COMPILER V2.53,  rotr                                                                  12/01/15  11:28:58  PAGE 3   
+
+ 00000012  3201      ADD         R2,#0x1
+ 00000014  1C13      MOV         R3,R2 ; c
+ 00000016  4CFA      LDR         R4,=0x3E8
+ 00000018  42A3      CMP         R3,R4 ; c
+ 0000001A  DBF5      BLT         L_25  ; T=0x00000008
+   42: }
+ 0000001C  3101      ADD         R1,#0x1
+ 0000001E          L_13:
+ 0000001E  1C0A      MOV         R2,R1 ; b
+ 00000020  1C03      MOV         R3,R0 ; dly
+ 00000022  429A      CMP         R2,R3 ; b
+ 00000024  D3EF      BCC         L_20  ; T=0x00000006
+ 00000026            ; SCOPE-END
+ 00000026  BC10      POP         {R4}
+ 00000028  4770      BX          R14
+ 0000002A          ENDP ; 'delay_ms?T'
+
+
+*** CODE SEGMENT '?PR?main?rotr':
+    3:   void main()
+ 00000000  B500      PUSH        {LR}
+    4:   {
+ 00000002            ; SCOPE-START
+    5:     int I=000000001,j;
+ 00000002  2401      MOV         R4,#0x1
+ 00000004  ---- Variable 'I' assigned to Register 'R4' ----
+    6:     IODIR0=0XFFFFFFFF;
+ 00000004  4800      LDR         R1,=0xFFFFFFFF
+ 00000006  4800      LDR         R0,=0xE0028008
+ 00000008  6001      STR         R1,[R0,#0x0]
+   10:      for(j=0;j<=32;j++)
+ 0000000A          L_34:
+ 0000000A  2500      MOV         R5,#0x0
+ 0000000C  ---- Variable 'j' assigned to Register 'R5' ----
+ 0000000C          L_33:
+   12:          IOSET0=I;
+ 0000000C  1C21      MOV         R1,R4 ; I
+ 0000000E  4800      LDR         R0,=0xE0028004
+ 00000010  6001      STR         R1,[R0,#0x0]
+   13:         delay_ms(50);
+ 00000012  2032      MOV         R0,#0x32
+ 00000014  F7FF      BL          delay_ms?T  ; T=0x0001  (1)
+ 00000016  FFF4      BL          delay_ms?T  ; T=0x0001  (2)
+   14:         IOCLR0=I;
+ 00000018  1C21      MOV         R1,R4 ; I
+ 0000001A  4800      LDR         R0,=0xE002800C
+ 0000001C  6001      STR         R1,[R0,#0x0]
+   15:         I=I<<1;
+ 0000001E  0064      LSL         R4,R4,#0x1 ; I
+   16:      }
+ 00000020  3501      ADD         R5,#0x1
+ 00000022  1C28      MOV         R0,R5 ; j
+ 00000024  2820      CMP         R0,#0x20 ; j
+ 00000026  DDF1      BLE         L_33  ; T=0x0000000C
+   17:     I=0X00000001;
+ 00000028  2401      MOV         R4,#0x1
+   19:     }
+ 0000002A  E7EE      B           L_34  ; T=0x0000000A
+ 0000002C            ; SCOPE-END
+ 0000002C  BC08      POP         {R3}
+ 0000002E  4718      BX          R3
+ 00000030          ENDP ; 'main'
+
+
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+ARM COMPILER V2.53,  rotr                                                                  12/01/15  11:28:58  PAGE 4   
+
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

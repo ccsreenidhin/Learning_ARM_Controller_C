@@ -1,0 +1,117 @@
+ARM COMPILER V2.53,  timer0                                                                14/01/15  11:57:50  PAGE 1   
+
+
+ARM COMPILER V2.53, COMPILATION OF MODULE timer0
+OBJECT MODULE PLACED IN timer0.OBJ
+COMPILER INVOKED BY: C:\Keil\ARM\BIN\CA.exe timer0.c THUMB BROWSE DEBUG TABS(4) 
+
+stmt  level    source
+
+    1          #include <LPC214X.H>
+    2          
+    3           void main()
+    4           {
+    5   1          IODIR0=0XFFFFFFFF;
+    6   1          T0PR=0X00003A97;
+    7   1          T0TCR=0X02;
+    8   1          
+    9   1          T0TCR=0x01;
+   10   1      
+   11   1          while(1)
+   12   1          {
+   13   2              IOSET0=0xFFFFFFFF;
+   14   2              while(T0TC<1);
+   15   2              IOCLR0=0xFFFFFFFF;
+   16   2              T0TC=0x00;
+   17   2              while(T0TC<1);
+   18   2              T0TC=0x00;
+   19   2              
+   20   2             
+   21   2          }
+   22   1       }
+   23           
+ARM COMPILER V2.53,  timer0                                                                14/01/15  11:57:50  PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+
+*** EXTERNALS:
+ EXTERN NUMBER (__startup)
+
+
+
+*** PUBLICS:
+ PUBLIC         main
+
+
+
+*** CODE SEGMENT '?PR?main?timer0':
+    3:  void main()
+ 00000000  B500      PUSH        {LR}
+    5:      IODIR0=0XFFFFFFFF;
+ 00000002  4800      LDR         R1,=0xFFFFFFFF
+ 00000004  4800      LDR         R0,=0xE0028008
+ 00000006  6001      STR         R1,[R0,#0x0]
+    6:     T0PR=0X00003A97;
+ 00000008  4800      LDR         R1,=0x3A97
+ 0000000A  4800      LDR         R0,=0xE000400C
+ 0000000C  6001      STR         R1,[R0,#0x0]
+    7:     T0TCR=0X02;
+ 0000000E  2102      MOV         R1,#0x2
+ 00000010  4800      LDR         R0,=0xE0004004
+ 00000012  6001      STR         R1,[R0,#0x0]
+    9:     T0TCR=0x01;
+ 00000014  2101      MOV         R1,#0x1
+ 00000016  4800      LDR         R0,=0xE0004004
+ 00000018  6001      STR         R1,[R0,#0x0]
+   11:     while(1)
+ 0000001A          L_3:
+   13:         IOSET0=0xFFFFFFFF;
+ 0000001A  4800      LDR         R1,=0xFFFFFFFF
+ 0000001C  4800      LDR         R0,=0xE0028004
+ 0000001E  6001      STR         R1,[R0,#0x0]
+   14:         while(T0TC<1);
+ 00000020          L_5:
+ 00000020  4800      LDR         R0,=0xE0004008
+ 00000022  6800      LDR         R0,[R0,#0x0]
+ 00000024  2801      CMP         R0,#0x1
+ 00000026  D3FB      BCC         L_5  ; T=0x00000020
+   15:         IOCLR0=0xFFFFFFFF;
+ 00000028  4800      LDR         R1,=0xFFFFFFFF
+ 0000002A  4800      LDR         R0,=0xE002800C
+ 0000002C  6001      STR         R1,[R0,#0x0]
+   16:         T0TC=0x00;
+ 0000002E  2100      MOV         R1,#0x0
+ 00000030  4800      LDR         R0,=0xE0004008
+ 00000032  6001      STR         R1,[R0,#0x0]
+   17:         while(T0TC<1);
+ 00000034          L_9:
+ 00000034  4800      LDR         R0,=0xE0004008
+ 00000036  6800      LDR         R0,[R0,#0x0]
+ 00000038  2801      CMP         R0,#0x1
+ 0000003A  D3FB      BCC         L_9  ; T=0x00000034
+   18:         T0TC=0x00;
+ 0000003C  2100      MOV         R1,#0x0
+ 0000003E  4800      LDR         R0,=0xE0004008
+ 00000040  6001      STR         R1,[R0,#0x0]
+   21:     }
+ 00000042  E7EA      B           L_3  ; T=0x0000001A
+   22:  }
+ 00000044  BC08      POP         {R3}
+ 00000046  4718      BX          R3
+ 00000048          ENDP ; 'main'
+
+
+
+ARM COMPILER V2.53,  timer0                                                                14/01/15  11:57:50  PAGE 3   
+
+Module Information          Static
+----------------------------------
+  code size            =    ------
+  data size            =    ------
+  const size           =    ------
+End of Module Information.
+
+
+ARM COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
